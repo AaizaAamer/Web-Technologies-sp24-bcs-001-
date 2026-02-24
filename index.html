@@ -72,6 +72,51 @@
         gap:10px;
         margin-top:20px;
     }
+
+    .about-etsy{
+        
+    }
+
+.main-container{
+    display:flex;          /* makes hero and paper horizontal */
+    gap:20px;
+    margin:20px;
+}
+
+/* HERO */
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background-color:#d9cfb3;
+    border-radius:15px;
+    padding:40px;
+    width:65%;
+}
+
+.hero-image img{
+    width:250px;
+    border-radius:15px;
+}
+
+/* PAPER CARD */
+.paper{
+    position:relative;
+    width:35%;
+}
+
+.paper-image{
+    width:100%;
+    border-radius:15px;
+}
+
+.paper-text{
+    position:absolute;
+    bottom:20px;
+    left:20px;
+    color:white;
+    font-size:24px;
+}
     </style>
 </head>
 <body style="font-family: Arial, Helvetica, sans-serif;">
@@ -105,6 +150,83 @@
 
     </div>
 <hr/>
+
+<div class="main-container">
+
+    <!-- LEFT BIG HERO -->
+    <div class="hero">
+
+        <div class="hero-text">
+            <h1>Make Easter extra-special with these unique finds</h1>
+            <button>Shop our favourites</button>
+        </div>
+
+        <div class="hero-image">
+            <img src="easter.jpg">
+        </div>
+
+    </div>
+
+    <!-- RIGHT PAPER CARD -->
+    <div class="paper">
+
+        <img src="paper.jpg" class="paper-image">
+
+        <div class="paper-text">
+            <h2>Luxury paper worth swooning over</h2>
+            <p>Shop now</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="paper">
+    <div class="paper-text">
+        <h1>Luxury paper worth swooning over</h1>
+        <h2>Shop now</h2>
+    </div>
+    <div class="paper-image">
+        <img src="paper.jpg">
+    </div>
+</div>
+
+
+<div class="about-etsy">
+    <h1>What is Etsy?</h1>
+    <a href="https://www.etsy.com/about">Read our wonderfully weird story</a>
+
+    <div class="container">
+
+        <div class="box">
+            <h2>A community doing good</h2>
+            <p>
+                Etsy is a global online marketplace, where people </br>come together to make,
+                sell, buy and collect unique</br> items. We're also a community pushing for
+                positive</br> change for small businesses, people, and the</br> planet.
+            </p>
+            <a href="#">Here are some of the ways we're making a positive impact, together.</a>
+        </div>
+
+        <div class="box">
+            <h2>Support independent creators</h2>
+            <p>
+                There's no Etsy warehouse – just millions of people</br> selling the things
+                they love. We make the whole</br> process easy, helping you connect directly
+                with</br> makers to find something extraordinary.
+            </p>
+        </div>
+
+        <div class="box">
+            <h2>Peace of mind</h2>
+            <p>
+                Your privacy is the highest priority of our dedicated</br> team.
+                And if you ever need assistance, we are</br> always ready to step in for support.
+            </p>
+        </div>
+
+    </div>
+</div>
 
 <div class="subscribe-section">
     <p>Yes! Send me exclusive offers, unique gift ideas, and personalised tips for shopping and selling on Etsy.</p>
