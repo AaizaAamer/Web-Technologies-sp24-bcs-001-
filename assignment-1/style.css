@@ -5,6 +5,7 @@
             padding:0;
             box-sizing: border-box;
         }
+        
         .navbar{
             display:flex;
             text-align:center;
@@ -16,6 +17,7 @@
                 
             
         }
+        
 
         .LOGO{
             color:rgb(171, 123, 33);
@@ -37,8 +39,10 @@
         .categories-icon img{
             width:20px;
         }  
-        .categories-text p{
+        .categories-text a{
             font-size:15px;
+            text-decoration: None;
+            color:black;
         } 
         .Search{
             display:flex;
@@ -84,28 +88,38 @@
             width:50px;
             border-radius:0 50px 50px 0;
         }
+
         .sign-in-btn{
             font-size:15px;
             margin-left:20px;
-            margin-right:20px;
+            margin-right:30px;
             text-decoration: none;
             color:black;
         }
-        .icons{
-        display:flex;
-        align-items:center;
-        gap:30px;
-       }
-       .heart-icon img{
-        width:20px;
-        margin-left:20px;
-       }
-       .gift-icon img, .parcel-icon img{
-        margin-right:8px;
-       }
-       .heart-icon:hover{
-        background-color: light rgb(98, 98, 173);
-       }
+.icons{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+.icons div{
+    width:35px;
+    height:35px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:50%;
+    transition: background-color 0.3s;
+}
+
+.icons div:hover{
+    background-color: rgb(173, 200, 255);
+}
+
+.icons img{
+    width:20px;
+}
+
         .subnavbar{
             display:flex;
             gap:40px;
@@ -191,6 +205,9 @@
     position:relative;
     overflow:hidden;
 }
+.hero:hover{
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3); 
+}
 
 .hero-image img{
     width:400px;
@@ -207,6 +224,11 @@
     padding:10px 20px;
     border-radius:20px;
     font-size:16px;
+    margin-left:60px;
+   
+}
+.hero button:hover{
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3); 
    
 }
 
@@ -215,6 +237,9 @@
     position:relative;
     width:35%;
     margin-left:20px;
+}
+.paper:hover{
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3); 
 }
 
 .paper-image{
@@ -246,6 +271,9 @@
     padding:10px;
     border: 1px light grey;
 }   
+.FairyTaleCard:hover, .VirtualSurrealismCard:hover, .BoldBlueHuesCard:hover, .SpectrumOfPurplesCard:hover{
+    border: 1px solid rgb(206, 197, 197);
+}  
 .FairyTaleCard img{
     width:100%;
     border-radius:15px;
@@ -282,7 +310,7 @@
     display:flex;
     gap:30px;
     margin-left:70px;
-    width:1500px;
+    width:100%;
 }
 
 .winter-text{
@@ -362,6 +390,7 @@
    
     margin:0px;
     background-color: lemonchiffon;
+    
 }
 .about-etsy-text{
     text-align:center;
@@ -434,6 +463,21 @@
     height:170px;
     object-fit: cover;
 }
+.gift1,.gift2,.gift3,.gift4,.gift5,.gift6{
+    position:relative;
+}
+.gift1-text,.gift2-text,.gift3-text,.gift4-text,.gift5-text,.gift6-text{
+    position:absolute;
+    bottom:25px;
+    right:45px;
+    background-color: aliceblue;
+    color:black;
+    border-radius:15px;
+    padding:4px;
+    width:80px;
+    border:1px solid grey;
+    padding-left:6px;
+}
 
 .specialGifts{
     display:flex;
@@ -454,7 +498,7 @@
 .weddingGiftsimg img{
     
     border-radius:15px;
-    height:100px;
+    height:110px;
     object-fit: cover;
     padding-left: 5px;
     padding-top:5px;
@@ -462,10 +506,12 @@
     position: absolute;
     left:auto;
 }
-.weddingGiftsText{
+.weddingGiftsText p{
     position:absolute;
-    bottom:25px;
-    left:110px;
+    /* bottom:35px; */
+    left:45%;
+    top:50%;
+    text-align:center;
     color:black;
     font-size:15px;
     
@@ -480,7 +526,7 @@
 }
 .EasterHostingGiftsimg img{
     border-radius:15px;
-    height:100px;
+    height:110px;
     object-fit: cover;
     padding-left: 5px;
     padding-top:5px;
@@ -490,8 +536,9 @@
 }
 .EasterHostingGiftsText{
     position:absolute;
-    bottom:25px;
-    left:110px;
+     left:45%;
+    top:50%;
+
     color:black;
     font-size:15px;
 }
@@ -505,7 +552,7 @@
 }
 .BagsAndAccessoriesimg img{
     border-radius:15px;
-    height:100px;
+    height:110px;
     object-fit: cover;
     padding-left: 5px;
     padding-top:5px;
@@ -530,7 +577,7 @@
 }
 .PersonalizedHomeGiftsimg img{
     border-radius:15px;
-    height:100px;
+    height:110px;
     object-fit: cover;
     padding-left: 5px;
     padding-top:5px;
@@ -555,7 +602,7 @@
 }
 .VintageStyleGiftsimg img{
     border-radius:15px;
-    height:100px;
+    height:110px;
     object-fit: cover;
     padding-left: 5px;
     padding-top:5px;
@@ -565,8 +612,8 @@
 }
 .VintageStyleGiftsText{
     position:absolute;
-    bottom:25px;
-    left:110px;
+     left:45%;
+    top:50%;
     color:black;
     font-size:15px;
 }
@@ -590,7 +637,136 @@
 .loved-categories-cards img{
     width:100%;
     height:300px;
+    position:relative;
     
     object-fit:cover;
     border-radius:15px;
+}
+.Prints,.Earings,.DigitalPrints,.Necklaces, .WallDecor,.EmbroideryPatterns {
+    position: relative;  /* make sure absolute inside works */
+}
+
+.PrintsFav,.EaringsFav,.DigitalPrintsFav,.NecklacesFav, .WallDecorsFav,.EmbroideryPatternsFav  {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;    
+    visibility: hidden;
+}
+.Prints:hover .PrintsFav,.Earings:hover .EaringsFav, .DigitalPrints:hover .DigitalPrintsFav,.WallDecor:hover .WallDecorsFav,
+
+.Necklaces:hover  .NecklacesFav,.EmbroideryPatterns:hover  .EmbroideryPatternsFav  {
+    visibility: visible;
+}
+
+.PrintsFav img, .EaringsFav img,.DigitalPrintsFav img,.NecklacesFav img, .WallDecorsFav img,.EmbroideryPatternsFav img {
+    width: 50%;
+    height: 50%;
+}
+.downloadEtsy button:hover{
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+
+.blue{
+    background-color:rgb(29, 122, 210);
+    height:100px;
+    margin:0;
+    width:1521px;
+    
+}
+
+.blue p{
+    text-align:center;
+    line-height:100px;
+    color:white;
+    text-decoration: dotted underline;
+}
+
+.bottompage{
+    height:300px;
+    display:flex;
+    gap:50px;
+    background-color:rgb(40, 15, 231);
+    color:white;
+     width:1521px;
+     padding-left:40px;
+}
+
+.downloadEtsy{
+    background-color:#122868;
+    width:500px;
+    height:300px;
+    
+}
+
+.downloadImg{
+    width:80px;
+    margin:20px;
+    border-radius:15px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:100px;
+}
+
+.downloadBtn{
+    background-color:rgb(29, 122, 210);
+    color:white;
+    padding:10px 20px;
+    border-radius:20px;
+    font-size:16px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:200px;
+}
+
+.bottomLists{
+    margin-left:20px;
+    margin-right:0px;
+    display:flex;
+    gap:60px;
+}
+
+.list{
+    list-style:none;
+    font-size:15px;
+    padding:0;
+    gap:3px;
+    display:flex;
+    flex-direction:column;
+    margin-top:25px;
+}
+
+.title{
+    font-weight:bold;
+    margin:8px 0;
+}
+
+.list li{
+    margin:5px 0;
+}
+
+.copyright{
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:20px;
+    width:1521px;
+    
+}
+
+body{
+    overflow-x:hidden;
+}
+img{
+    max-width:100%;
 }
