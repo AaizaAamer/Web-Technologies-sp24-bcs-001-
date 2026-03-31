@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETSY</title>
     <link rel="stylesheet" href="style.css">
+    
    
 </head>
 <body style="font-family: Arial, Helvetica, sans-serif;">
@@ -14,14 +15,7 @@
         <div class="LOGO">
         <img src="download.png" width="100px">
         </div>
-        <div class="categories">
-            <div class="categories-icon">
-                <img src="menu.png">
-            </div>
-            <div class="categories-text">
-                <a href="#">Categories</a>
-            </div>
-        </div>
+
 
         <div class="Search">
             <div class="Search input">
@@ -47,15 +41,8 @@
             </div>
         </div>
     </div>
-<!-- <div class="subnavbar" >
-    <a href="#">Gifts</a>
-    <a href="#">New Arrivals</a>
-    <a href="#">Home Favourites</a>
-    <a href="#">Fashion Finds</a>
-    <a href="#">Vintage</a>
-    <a href="#">Registry</a>
-</div> -->
-<div class="subnavbar" id="subnavbar">
+    <!--desktop subnavbar-->
+<div class="subnavbar" >
     <a href="#">Gifts</a>
     <a href="#">New Arrivals</a>
     <a href="#">Home Favourites</a>
@@ -63,6 +50,7 @@
     <a href="#">Vintage</a>
     <a href="#">Registry</a>
 </div>
+
 <div class="mobile-navbar">
 
 <div class="mobile-top">
@@ -87,12 +75,25 @@
         </div>
     </div>
 </div>
+<div class="MobileSubnavbar">
+  <!-- smaller screens menu -->
+<div class="subnavbar-container">
+    <div class="menuBtn" id="menuBtn" onclick="toggleMenu()">
+        <img src="menu.png" alt="menu">
+        <p>Menu</p>
+    </div>
 
-<div class="mobile-search">
-    <div class="menuBtn" id="menuBtn">
-     <img src="menu.png" alt="Menu">
+    <div class="mobile-subnavbar-items" id="mobile-subnavbar-items">
+        <a href="#">Gifts</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Home Favourites</a>
+        <a href="#">Fashion Finds</a>
+        <a href="#">Vintage</a>
+        <a href="#">Registry</a>
+    </div>
 </div>
-
+<div class="mobile-search">
+  
     <div class="Search">
         <div class="Search-input">
             <input type="text" placeholder="Search for anything" style="padding-left:20px;">
@@ -103,21 +104,7 @@
     </div>
 </div>
 </div>
-<!-- <div class="subnavbar-container">
-    <div class="menuBtn" id="menuBtn">
-        <img src="menu.png">
-        <p>Menu</p>
-    </div>
-
-    <div class="subnavbar" id="subnavbar">
-        <a href="#">Gifts</a>
-        <a href="#">New Arrivals</a>
-        <a href="#">Home Favourites</a>
-        <a href="#">Fashion Finds</a>
-        <a href="#">Vintage</a>
-        <a href="#">Registry</a>
-    </div>
-</div> -->
+</div>
 <div class="divider">
 <hr style="background-color: rgb(0, 0, 0);">
 </div>
