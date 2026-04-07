@@ -3322,17 +3322,24 @@ img{
 /* ========================= */
 /* MOBILE & TABLET RESPONSIVE CARDS CENTERED */
 /* ========================= */
+/* MID LAB CODE ADDITION FOR RESPONSIVE DESIGN */
+/* ========================= */
+/* MOBILE & TABLET RESPONSIVE CARDS CENTERED */
+/* ========================= */
 
 /* Small Mobile (400 - 480px) */
 @media screen and (min-width: 400px) and (max-width: 480px) {
     .featuredContainer,
     #interestsContainer {
-        justify-content: center; /* center cards */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
     }
 
     .productCard,
     .interestCard {
-        width: 48%; /* 2 cards per row */
+        width: 48%;
         padding: 10px;
         margin-bottom: 15px;
     }
@@ -3363,7 +3370,10 @@ img{
 @media screen and (min-width: 481px) and (max-width: 768px) {
     .featuredContainer,
     #interestsContainer {
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
+        gap: 20px;
     }
 
     .productCard,
@@ -3399,12 +3409,15 @@ img{
 @media screen and (min-width: 769px) and (max-width: 992px) {
     .featuredContainer,
     #interestsContainer {
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
+        gap: 20px;
     }
 
     .productCard,
     .interestCard {
-        width: 31%; /* 3 cards per row */
+        width: 31%;
         padding: 15px;
         margin-bottom: 20px;
     }
