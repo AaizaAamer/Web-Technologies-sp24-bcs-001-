@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Products</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+
+    <h1>Products</h1>
+    <form action="/products" method="GET">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search Product"
+        value="<%= search %>"
+    >
+
+    <select name="category">
+
+       <option value="">All Categories</option>
+
+<option value="Fashion">Fashion</option>
+
+<option value="Jewelry">Jewelry</option>
+
+<option value="Home Decor">Home Decor</option>
+
+<option value="Gifts">Gifts</option>
+
+<option value="Crafts">Crafts</option>
+
+    </select>
+
+    <input
+        type="number"
+        name="minPrice"
+        placeholder="Min Price"
+        value="<%= minPrice %>"
+    >
+
+    <input
+        type="number"
+        name="maxPrice"
+        placeholder="Max Price"
+        value="<%= maxPrice %>"
+    >
+
+    <button type="submit">
+
+        Filter
+
+    </button>
+
+</form>
+    <div class="products-container">
+
+        <% products.forEach(product => { %>
+
+            <div class="card">
+
+                <img 
+                    src="/images/<%= product.image %>" 
+                    width="200"
+                >
+
+                <h2><%= product.name %></h2>
+
+                <p>Price: Rs <%= product.price %></p>
+
+                <p>Category: <%= product.category %></p>
+
+                <p>Rating: <%= product.rating %></p>
+
+                <p>Stock: <%= product.stock %></p>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+
+
+    <div class="pagination">
+
+    <% if(currentPage > 1){ %>
+
+        <a href="/products?page=<%= currentPage - 1 %>&search=<%= search %>&category=<%= category %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">
+            Previous
+        </a>
+
+    <% } %>
+
+    <% for(let i = 1; i <= totalPages; i++){ %>
+
+        <a href="/products?page=<%= i %>&search=<%= search %>&category=<%= category %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">
+
+            <%= i %>
+
+        </a>
+
+    <% } %>
+
+    <% if(currentPage < totalPages){ %>
+
+        <a href="/products?page=<%= currentPage + 1 %>&search=<%= search %>&category=<%= category %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">
+            Next
+        </a>
+
+    <% } %>
+
+</div>
+
+</body>
+</html>
