@@ -6,29 +6,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETSY</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    
    
 </head>
 <body style="font-family: Arial, Helvetica, sans-serif;">
     <div class="navbar">
         <div class="LOGO">
-        <img src="download.png" width="100px">
+        <img src="/images/download.png" width="100px">
         </div>
-        <div class="categories">
-            <div class="categories-icon">
-                <img src="menu.png">
-            </div>
-            <div class="categories-text">
-                <a href="#">Categories</a>
-            </div>
-        </div>
+
 
         <div class="Search">
             <div class="Search input">
             <input type="text" placeholder="Search for anything" style="padding-left:20px;">
             </div>
             <div class="Search-icon">
-                <img src="search (1).png">
+                <img src="/images/search (1).png">
             </div>
         </div>
 
@@ -37,62 +31,79 @@
         </div>
         <div class="icons">
             <div class="heart-icon">
-                <img src="favorites.png" width="20px">
+                <img src="/images/favorites.png" width="20px">
             </div>
             <div class="gift-icon">
-                <img src="gift.png" width="20px">
+                <img src="/images/gift.png" width="20px">
             </div>
             <div class="parcel-icon">
-                <img src="parcel.png" width="20px">
+                <img src="/images/parcel.png" width="20px">
             </div>
         </div>
     </div>
-<div class="subnavbar" >
-    <a href="#">Gifts</a>
-    <a href="#">New Arrivals</a>
-    <a href="#">Home Favourites</a>
-    <a href="#">Fashion Finds</a>
-    <a href="#">Vintage</a>
-    <a href="#">Registry</a>
+    <!--desktop subnavbar-->
+<div class="subnavbar">
+    <a href="/products">All Products</a>
+    <a href="/products?category=Gifts">Gifts</a>
+    <a href="/products?category=New Arrivals">New Arrivals</a>
+    <a href="/products?category=Home Decor">Home Decor</a>
+    <a href="/products?category=Fashion">Fashion</a>
+    <a href="/products?category=Jewelry">Jewelry</a>
+    <a href="/products?category=Crafts">Crafts</a>
 </div>
 
 <div class="mobile-navbar">
 
 <div class="mobile-top">
     <div class="LOGO">
-    <img src="download.png" width="80px">
+    <img src="/images/download.png" width="80px">
     </div>
+    
     <div class="mobile-icons">
          <div class="Sign-in">
              <a href="#" class="sign-in-btn">Sign In</a>
         </div>
         <div class="icons">
             <div class="heart-icon">
-                <img src="favorites.png" width="20px">
+                <img src="/images/favorites.png" width="20px">
             </div>
             <div class="gift-icon">
-                <img src="gift.png" width="20px">
+                <img src="/images/gift.png" width="20px">
             </div>
             <div class="parcel-icon">
-                <img src="parcel.png" width="20px">
+                <img src="/images/parcel.png" width="20px">
             </div>
         </div>
     </div>
 </div>
+<div class="MobileSubnavbar">
+  <!-- smaller screens menu -->
+<div class="subnavbar-container">
+    <div class="menuBtn" id="menuBtn" onclick="toggleMenu()">
+        <img src="/images/menu.png" alt="menu">
+        <p>Menu</p>
+    </div>
 
+    <div class="mobile-subnavbar-items" id="mobile-subnavbar-items">
+        <a href="#">Gifts</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">Home Favourites</a>
+        <a href="#">Fashion Finds</a>
+        <a href="#">Vintage</a>
+        <a href="#">Registry</a>
+    </div>
+</div>
 <div class="mobile-search">
-    <div class="categories-icon">
-         <img src="menu.png">
-     </div>
-
+  
     <div class="Search">
         <div class="Search-input">
             <input type="text" placeholder="Search for anything" style="padding-left:20px;">
         </div>
         <div class="Search-icon">
-            <img src="search (1).png">
+            <img src="/images/search (1).png">
         </div>
     </div>
+</div>
 </div>
 </div>
 <div class="divider">
@@ -109,7 +120,7 @@
         </div>
 
         <div class="hero-image">
-            <img src="easter.jpg">
+            <img src="/images/easter.jpg">
         </div>
 
     </div>
@@ -117,7 +128,7 @@
     <!-- RIGHT PAPER CARD -->
     <div class="paper">
 
-        <img src="paper.jpg" class="paper-image">
+        <img src="/images/paper.jpg" class="paper-image">
 
         <div class="paper-text">
             <h2>Luxury paper worth swooning over</h2>
@@ -136,7 +147,7 @@
 
         <div class="FairyTaleCard">
             <div class="FairyTaleimg">
-            <img src="FairyTale.jpg" alt="">
+            <img src="/images/FairyTale.jpg" alt="">
             </div>
             <div class="FairyTaleText">
             <h3>Fairy Tale Romance</h3>
@@ -146,7 +157,7 @@
 
         <div class="VirtualSurrealismCard">
             <div class="VirtualSurrealismimg">
-            <img src="VirtualSurrealism.jpg" alt="">
+            <img src="/images/VirtualSurrealism.jpg" alt="">
             </div>
             <div class="VirtualSurrealismText">
             <h3>Virtual Surrealism</h3>
@@ -156,7 +167,7 @@
 
         <div class="BoldBlueHuesCard">
             <div class="BoldBlueHuesimg">
-            <img src="BoldBlueHues.jpg" alt="">
+            <img src="/images/BoldBlueHues.jpg" alt="">
             </div>
             <div class="BoldBlueHuesText">
             <h3>Bold Blue Hues</h3>
@@ -166,7 +177,7 @@
 
         <div class="SpectrumOfPurplesCard">
             <div class="SpectrumOfPurplesimg">
-            <img src="SpectrumOfPurples.jpg" alt="">
+            <img src="/images/SpectrumOfPurples.jpg" alt="">
             </div>
             <div class="SpectrumOfPurplesText">
             <h3>Spectrum of Purples</h3>
@@ -185,23 +196,23 @@
     </h2>
     <div class="winter-cards">
         <div class="BestOfEaster">
-            <img src="BestOfEaster.jpg" alt="">
+            <img src="/images/BestOfEaster.jpg" alt="">
             <h3>Best of Easter</h3>
         </div>
         <div class="Pisces">
-            <img src="Pisces.jpg" alt="">
+            <img src="/images/Pisces.jpg" alt="">
             <h3>Top 100 gifts for Pisces</h3>
     </div>
     <div class="NewArrivals">
-        <img src="NewArrivals.jpg" alt="">
+        <img src="/images/NewArrivals.jpg" alt="">
         <h3>New Arrivals</h3>
     </div>
     <div class="UniqueBirthdayIdeas">
-        <img src="birthdayideas.jpg" alt="">
+        <img src="/images/birthdayideas.jpg" alt="">
         <h3>Unique Birthday Ideas</h3>
     </div>
     <div class="decor">
-        <img src="Decor.jpg">
+        <img src="/images/Decor.jpg">
         <h3>FUNctional Decor</h3>
     </div>
 </div>
@@ -215,53 +226,54 @@
     </div>
     <div class="etsySpecialContainer" >
         <div class="EasterBaskets">
-            <img src="EasterBaskets.jpg" alt="">
+            <img src="/images/EasterBaskets.jpg" alt="">
             <h4>Personalized Easter Baskets</h4>
         </div>
         <div class="EasterOutfits">
-            <img src="EasterOutfits.jpg" alt="">
+            <img src="/images/EasterOutfits.jpg" alt="">
             <h4>Easter Outfits for Kids</h4>
         </div>
         <div class="EasterTreats">
-            <img src="EasterTreats.jpg" alt="">
+            <img src="/images/EasterTreats.jpg" alt="">
             <h4>Easter Treat Bags</h4>
         </div>
     </div>
 </div>
 <div class="etsySpecialGifts">
     <div class="gift1">
-        <img src="gift1.jpg">
+        <img src="/images/gift1.jpg">
         <div class="gift1-text">
             <p>$ 12.00</p>
         </div>
 
     </div>
     <div class="gift2">
-        <img src="gift2.jpg">
+        <img src="/images/gift2.jpg">
         <div class="gift2-text">
             <p>$ 15.40</p>
         </div>
         </div>
+    
     <div class="gift3">
-        <img src="gift3.jpg">
+        <img src="/images/gift3.jpg">
         <div class="gift3-text">
             <p>$ 11.20</p>
         </div>
     </div>
     <div class="gift4">
-        <img src="gift4.jpg">
+        <img src="/images/gift4.jpg">
         <div class="gift4-text">
             <p>$ 8.40</p>
         </div>
     </div>
     <div class="gift5">
-        <img src="gift5.jpg">
+        <img src="/images/gift5.jpg">
         <div class="gift5-text">
             <p>$ 10.00</p>
         </div>
     </div>
     <div class="gift6">
-        <img src="gift6.jpg">
+        <img src="/images/gift6.jpg">
         <div class="gift6-text">
             <p>$ 09.00</p>
         </div>
@@ -274,7 +286,7 @@
     
     <div class="WeddingGifts">
         <div class="weddingGiftsimg">
-        <img src="weddingGifts.jpg">
+        <img src="/images/weddingGifts.jpg">
         </div>
         <div class="weddingGiftsText">
             <p>Wedding Gifts</p>
@@ -283,7 +295,7 @@
     </div>
     <div class="EasterHostingGifts">
         <div class="EasterHostingGiftsimg">
-        <img src="EasterHostingGifts.jpg">
+        <img src="/images/EasterHostingGifts.jpg">
         </div>
         <div class="EasterHostingGiftsText">
             <p>Easter Hosting Gifts</p>
@@ -291,7 +303,7 @@
     </div>
     <div class="BagsAndAccessories">
         <div class="BagsAndAccessoriesimg">
-        <img src="BagsAndAccessories.jpg">
+        <img src="/images/BagsAndAccessories.jpg">
         </div>
         <div class="BagsAndAccessoriesText">
             <p>Bags and Accessories</p>
@@ -299,7 +311,7 @@
     </div>
     <div class="PersonalizedHomeGifts">
         <div class="PersonalizedHomeGiftsimg">
-        <img src="PersonalizedHomeGifts.jpg">
+        <img src="/images/PersonalizedHomeGifts.jpg">
         </div>
         <div class="PersonalizedHomeGiftsText">
             <p>Personalized Home Gifts</p>
@@ -307,7 +319,7 @@
     </div>
     <div class="VintageStyleGifts">
         <div class="VintageStyleGiftsimg">
-        <img src="VintageStyleGifts.jpg">
+        <img src="/images/VintageStyleGifts.jpg">
         </div>
         <div class="VintageStyleGiftsText">
             <p>Vintage Style Gifts</p>
@@ -318,45 +330,45 @@
     <h2 class="loved-categories-text">Shop our most-loved categories</h2>
     <div class="loved-categories-cards">
         <div class="Prints">
-            <img src="Prints.jpg" alt="">
+            <img src="/images/Prints.jpg" alt="">
             <h4>Prints</h4>
             <div class="PrintsFav">
-                <img src="favorites.png">
+                <img src="/images/favorites.png">
             </div>
         </div>
         <div class="Earings">
-            <img src="Earings.jpg" alt="">
+            <img src="/images/Earings.jpg" alt="">
             <h4>Earings</h4>
             <div class="EaringsFav">
-                <img src="favorites.png">
+                <img src="/images/favorites.png">
             </div>
         </div>
         <div class="DigitalPrints">
-            <img src="DigitalPrints.jpg" alt="">
+            <img src="/images/DigitalPrints.jpg" alt="">
             <h4>Digital Prints</h4>
             <div class="DigitalPrintsFav">
-                <img src="favorites.png">
+                <img src="/images/favorites.png">
             </div>
         </div>
         <div class="Necklaces">
-            <img src="Necklaces.jpg" alt="">
+            <img src="/images/Necklaces.jpg" alt="">
             <h4>Necklaces</h4>
             <div class="NecklacesFav">
-                <img src="favorites.png">
+                <img src="/images/favorites.png">
             </div>
         </div>
         <div class="WallDecor">
-            <img src="WallDecor.jpg" alt="">
+            <img src="/images/WallDecor.jpg" alt="">
             <h4>Wall Decor</h4>
             <div class="WallDecorsFav">
-                <img src="favorites.png">
+                <img src="/images/favorites.png">
             </div>
         </div>
         <div class="EmbroideryPatterns">
-            <img src="EmbroideryPatterns.jpg" alt="">
+            <img src="/images/EmbroideryPatterns.jpg" alt="">
             <h4>Embroidery Patterns</h4>
             <div class="EmbroideryPatternsFav">
-                <img src="favorites.png">
+                <img src="/images/favorites.png">
             </div>
         </div>
     </div>
@@ -368,23 +380,23 @@
     </div>
     <div class="standoutCards">
         <div class="BirthdayGifts">
-            <img src="BirthdayGifts.jpg" alt="">
+            <img src="/images/BirthdayGifts.jpg" alt="">
             <h4>Birthday Gifts<br/> upto 20% off</h4>
         </div>
         <div class="Toys">
-            <img src="Toys.jpg" alt="">
+            <img src="/images/Toys.jpg" alt="">
             <h4>Toys<br/> up to 20% off</h4>
         </div>
         <div class="Rings">
-            <img src="Rings.jpg" alt="">
+            <img src="/images/Rings.jpg" alt="">
             <h4>Rings<br/> up to 20% off</h4>
         </div>
         <div class="PartySupplies">
-            <img src="PartySupplies.jpg" alt="">
+            <img src="/images/PartySupplies.jpg" alt="">
             <h4>Paper and Party Supplies<br/> up to 20% off</h4>
         </div>
         <div class="PetGifts">
-            <img src="PetGifts.jpg" alt="Pet Gifts">
+            <img src="/images/PetGifts.jpg" alt="Pet Gifts">
             <h4>Pet Gifts<br/> up to 20% off</h4>
             </div>
 </div> 
@@ -449,7 +461,7 @@
 
 <div class="bottompage">
         <div class="downloadEtsy">
-            <img src="etsyDownload.png" class="downloadImg">
+            <img src="/images/etsyDownload.png" class="downloadImg">
             
             <button class="downloadBtn">Download the Etsy App</button>
         
@@ -535,7 +547,7 @@
     </div>
 
     <div class="downloadEtsy">
-        <img src="etsyDownload.png" class="downloadImg">
+        <img src="/images//js/etsyDownload.png" class="downloadImg">
         <button class="downloadBtn">Download the Etsy App</button>
     </div>
 </div>
@@ -544,6 +556,6 @@
 <div class="copyright">
         <p>Copyright © 2024 Etsy, Inc. All rights reserved.</p>
 </div>
-
+<script src="/js/script.js"></script>
 </body>
 </html>
