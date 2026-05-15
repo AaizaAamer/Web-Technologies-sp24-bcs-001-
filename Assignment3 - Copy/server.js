@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 const path = require("path");
 
 const productRoutes = require("./routes/productRoutes");
-const adminRoutes =
-require('./routes/adminRoutes');
 
 const app = express();
 
@@ -21,8 +19,6 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "public")));
-
-app.use('/admin', adminRoutes);
 
 app.use(productRoutes);
 
