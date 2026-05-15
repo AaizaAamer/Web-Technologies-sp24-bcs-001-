@@ -6,27 +6,38 @@ const productRoutes = require("./routes/productRoutes");
 
 const app = express();
 
-mongoose.connect("mongodb://127.0.0.1:27017/ecommerce")
-.then(() => {
-    console.log("MongoDB Connected");
-})
-.catch((err) => {
-    console.log(err);
-});
+const PORT = 3000;
+const MONGO_URI = "mongodb://127.0.0.1:27017/ecommerce";
 
+// MongoDB connection
+mongoose.connect(MONGO_URI)
+    .then(() => {
+        console.log("MongoDB Connected Successfully");
+    })
+    .catch((err) => {
+        console.log("MongoDB Connection Error:", err);
+    });
+
+// View engine
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
+// Middleware
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use(productRoutes);
-
+// Routes
 app.get("/", (req, res) => {
     res.render("index");
 });
 
-const PORT = 3000;
+app.use("/", productRoutes);
+
+// 404 handler
+app.use((req, res) => {
+    res.status(404).send("404 - Page Not Found");
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
