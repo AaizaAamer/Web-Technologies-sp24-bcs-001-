@@ -3,46 +3,80 @@
 
 <head>
     <title>Edit Product</title>
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 
 <body>
 
-<h1>Edit Product</h1>
+<%- include("./partials/adminSidebar") %>
+
+<div class="form-container">
 
 <form
 action="/admin/edit/<%= product._id %>"
 method="POST"
-enctype="multipart/form-data">
+enctype="multipart/form-data"
+class="product-form">
 
-<input
-type="text"
-name="name"
-value="<%= product.name %>">
+    <h1>Edit Product</h1>
 
-<input
-type="number"
-name="price"
-value="<%= product.price %>">
+    <input
+    type="text"
+    name="name"
+    value="<%= product.name %>"
+    required>
 
-<input
-type="number"
-name="stock"
-value="<%= product.stock %>">
+    <input
+    type="number"
+    name="price"
+    value="<%= product.price %>"
+    min="0"
+    required>
 
-<input
-type="text"
-name="category"
-value="<%= product.category %>">
+    <input
+    type="number"
+    name="stock"
+    value="<%= product.stock %>"
+    min="0"
+    required>
 
-<input
-type="file"
-name="image">
+    <input
+    type="number"
+    name="rating"
+    value="<%= product.rating %>"
+    min="0"
+    max="5"
+    step="0.1"
+    required>
 
-<button type="submit">
-Update Product
-</button>
+    <select name="category" required>
+
+        <option value="">Select Category</option>
+
+        <option value="Fashion" <%= product.category === "Fashion" ? "selected" : "" %>>Fashion</option>
+        <option value="Jewelry" <%= product.category === "Jewelry" ? "selected" : "" %>>Jewelry</option>
+        <option value="Home Decor" <%= product.category === "Home Decor" ? "selected" : "" %>>Home Decor</option>
+        <option value="Gifts" <%= product.category === "Gifts" ? "selected" : "" %>>Gifts</option>
+        <option value="Crafts" <%= product.category === "Crafts" ? "selected" : "" %>>Crafts</option>
+        <option value="Party" <%= product.category === "Party" ? "selected" : "" %>>Party</option>
+        <option value="Pets" <%= product.category === "Pets" ? "selected" : "" %>>Pets</option>
+        <option value="Toys" <%= product.category === "Toys" ? "selected" : "" %>>Toys</option>
+
+    </select>
+
+    <input
+    type="file"
+    name="image">
+    <p>Current Image:</p>
+    <img src="/uploads/<%= product.image %>" width="100">
+
+    <button type="submit">
+        Update Product
+    </button>
 
 </form>
+
+</div>
 
 </body>
 </html>

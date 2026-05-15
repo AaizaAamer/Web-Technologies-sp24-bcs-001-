@@ -7,81 +7,35 @@
 
     <title>Dashboard</title>
 
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
 
 </head>
 
 <body>
+<div class="sidebar">
+    <!-- <h2 class="logo">Admin Panel</h2> -->
+     <img class="logo-img" src="/images/download.png" width="100px">
 
-<div class="admin-container">
+    <ul class="menu">
+        <li><a href="/admin">Home</a></li>
+        <li><a href="/admin/add">Add Product</a></li>
+        
+    </ul>
 
-    <%- include("adminSidebar") %>
 
-    <div class="admin-content">
 
-        <h1>Admin Dashboard</h1>
 
-        <table border="1">
 
-            <tr>
+ <div class="sidebar-bottom">
 
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Category</th>
-                <th>Actions</th>
+        <div class="divider"></div>
 
-            </tr>
-
-            <% products.forEach(product => { %>
-
-            <tr>
-
-                <td>
-                    <img
-                    src="<%= product.image %>"
-                    width="100">
-                </td>
-
-                <td><%= product.name %></td>
-
-                <td><%= product.price %></td>
-
-                <td><%= product.stock %></td>
-
-                <td><%= product.category %></td>
-
-                <td>
-
-                    <a href="/admin/edit/<%= product._id %>">
-                        Edit
-                    </a>
-
-                    <form
-                    action="/admin/delete/<%= product._id %>"
-                    method="POST">
-
-                    <button
-                    onclick="return confirm('Are you sure?')">
-
-                    Delete
-
-                    </button>
-
-                    </form>
-
-                </td>
-
-            </tr>
-
-            <% }) %>
-
-        </table>
+        <div class="admin-info">
+            <img src="/images/user.png" class="user-img">
+            <span>ADMIN</span>
+        </div>
 
     </div>
-
 </div>
-
 </body>
 </html>

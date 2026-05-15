@@ -1,16 +1,41 @@
+
 const Product = require("../models/Product");
 
 const getDashboard = async (req, res) => {
+    try {
 
-    const products = await Product.find();
+        const page = parseInt(req.query.page) || 1;
+        const limit = 5;
 
-    res.render("admin/dashboard", {
-        products
-    });
+        const skip = (page - 1) * limit;
 
+        const search = req.query.search;
+
+        let query = {};
+
+        if (search && search.trim()) {
+            query.name = { $regex: search.trim(), $options: "i" };
+        }
+
+        const products = await Product.find(query)
+            .skip(skip)
+            .limit(limit);
+
+        const totalProducts = await Product.countDocuments(query);
+
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        res.render("admin/dashboard", {
+            products,
+            currentPage: page,
+            totalPages
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
 };
-
-const getAddProduct = (req, res) => {
+const showAddForm = (req, res) => {
 
     res.render("admin/addProduct");
 
@@ -18,96 +43,137 @@ const getAddProduct = (req, res) => {
 
 const addProduct = async (req, res) => {
 
-    const {
-        name,
-        price,
-        stock,
-        category
-    } = req.body;
+    try {
 
-    await Product.create({
+        const {
+            name,
+            price,
+            category,
+            rating,
+            stock
+        } = req.body;
 
-        name,
-        price,
-        stock,
-        category,
+        if (!name || !price || !category || !rating || !stock) {
+            if (price < 0 || stock < 0) {
 
-        image:
-        "/uploads/" + req.file.filename
+    return res.send("Price and Stock cannot be negative");
 
-    });
+}
 
-    res.redirect("/admin/dashboard");
+if (rating < 0 || rating > 5) {
 
-};
+    return res.send("Rating must be between 0 and 5");
 
-const getEditProduct = async (req, res) => {
+}
 
-    const product =
-    await Product.findById(req.params.id);
+            return res.send("All fields are required");
 
-    res.render("admin/editProduct", {
-        product
-    });
+        }
 
-};
+        const newProduct = new Product({
 
-const editProduct = async (req, res) => {
+            name,
+            price,
+            category,
+            rating,
+            stock,
+            image: req.file.filename
 
-    const {
-        name,
-        price,
-        stock,
-        category
-    } = req.body;
+        });
 
-    let updatedData = {
+        await newProduct.save();
 
-        name,
-        price,
-        stock,
-        category
+        res.redirect("/admin");
 
-    };
+    }
+    
+    catch (error) {
 
-    if(req.file){
-
-        updatedData.image =
-        "/uploads/" + req.file.filename;
+        console.log(error);
 
     }
 
-    await Product.findByIdAndUpdate(
-        req.params.id,
-        updatedData
-    );
-
-    res.redirect("/admin/dashboard");
-
 };
 
+const showEditForm = async (req, res) => {
+
+    try {
+
+        const product = await Product.findById(req.params.id);
+
+        res.render("admin/editProduct", { product });
+
+    }
+    
+    catch (error) {
+
+        console.log(error);
+
+    }
+
+};
+const updateProduct = async (req, res) => {
+    try {
+
+        const { name, price, category, rating, stock } = req.body;
+
+        if (!name || !price || !category || !rating || !stock) {
+            return res.send("All fields are required");
+        }
+
+        if (price < 0 || stock < 0) {
+            return res.send("Price and Stock cannot be negative");
+        }
+
+        if (rating < 0 || rating > 5) {
+            return res.send("Rating must be between 0 and 5");
+        }
+
+        let updatedData = {
+            name,
+            price,
+            category,
+            rating,
+            stock
+        };
+
+        if (req.file) {
+            updatedData.image = req.file.filename;
+        }
+
+        await Product.findByIdAndUpdate(req.params.id, updatedData);
+
+        res.redirect("/admin");
+
+    } catch (error) {
+        console.log(error);
+    }
+};
 const deleteProduct = async (req, res) => {
 
-    await Product.findByIdAndDelete(
-        req.params.id
-    );
+    try {
 
-    res.redirect("/admin/dashboard");
+        await Product.findByIdAndDelete(req.params.id);
+
+        res.redirect("/admin");
+
+    }
+    
+    catch (error) {
+
+        console.log(error);
+
+    }
 
 };
 
 module.exports = {
 
     getDashboard,
-
-    getAddProduct,
-
+    showAddForm,
     addProduct,
-
-    getEditProduct,
-
-    editProduct,
-
+    showEditForm,
+    updateProduct,
     deleteProduct
 
 };

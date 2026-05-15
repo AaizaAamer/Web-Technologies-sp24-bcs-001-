@@ -3,27 +3,30 @@
 
 <head>
     <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 
 <body>
 
+<%- include("./partials/adminSidebar") %>
+
+<div class="main-content">
+
 <h1>Admin Dashboard</h1>
 
-<a href="/admin/add">
-    Add Product
-</a>
-
-<table border="1">
+<form action="/admin" method="GET" class="search-form">
+    <input type="text" name="search" placeholder="Search product name...">
+    <button type="submit">Search</button>
+</form>
+<table>
 
 <tr>
-
-    <th>Image</th>
+    <th>Product</th>
     <th>Name</th>
     <th>Price</th>
     <th>Stock</th>
     <th>Category</th>
     <th>Actions</th>
-
 </tr>
 
 <% products.forEach(product => { %>
@@ -31,22 +34,19 @@
 <tr>
 
 <td>
-<img
-src="<%= product.image %>"
-width="100">
+<img src="/uploads/<%= product.image %>">
 </td>
 
 <td><%= product.name %></td>
-
 <td><%= product.price %></td>
-
 <td><%= product.stock %></td>
-
 <td><%= product.category %></td>
 
 <td>
 
-<a href="/admin/edit/<%= product._id %>">
+<a
+href="/admin/edit/<%= product._id %>"
+class="edit-btn">
 Edit
 </a>
 
@@ -55,6 +55,7 @@ action="/admin/delete/<%= product._id %>"
 method="POST">
 
 <button
+class="delete-btn"
 onclick="return confirm('Are you sure?')">
 
 Delete
@@ -70,6 +71,22 @@ Delete
 <% }) %>
 
 </table>
+
+
+<div class="pagination">
+
+    <% if (currentPage > 1) { %>
+        <a href="/admin?page=<%= currentPage - 1 %>">Prev</a>
+    <% } %>
+
+    <span>Page <%= currentPage %> of <%= totalPages %></span>
+
+    <% if (currentPage < totalPages) { %>
+        <a href="/admin?page=<%= currentPage + 1 %>">Next</a>
+    <% } %>
+
+</div>
+</div>
 
 </body>
 </html>
