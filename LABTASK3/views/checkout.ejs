@@ -115,7 +115,7 @@
         }
     </style>
 </head>
-<body class="checkout-page">
+<body class="checkout-page" data-session-aware="true">
     <main class="checkout-card">
         <%- include("./partials/flash") %>
 
@@ -130,5 +130,7 @@
             <a href="/logout" class="checkout-link primary">Logout</a>
         </div>
     </main>
+
+    <script src="/js/script.js"></script>
 </body>
 </html>

@@ -129,7 +129,7 @@
         }
     </style>
 </head>
-<body class="profile-page">
+<body class="profile-page" data-session-aware="true">
     <main class="profile-card">
         <%- include("../partials/flash") %>
 
@@ -157,5 +157,7 @@
             <a href="/logout" class="profile-link primary">Logout</a>
         </div>
     </main>
+
+    <script src="/js/script.js"></script>
 </body>
 </html>

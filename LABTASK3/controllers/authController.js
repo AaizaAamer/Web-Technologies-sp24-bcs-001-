@@ -1,103 +1,13 @@
-// const User = require("../models/User");
-// const bcrypt = require("bcryptjs");
 
-// exports.showRegister = (req, res) => {
-//     res.render("auth/register");
-// };
-
-// exports.registerUser = async (req, res) => {
-
-//     try{
-
-//         const { name, email, password } = req.body;
-
-//         const existingUser = await User.findOne({ email });
-
-//         if(existingUser){
-
-//             req.flash("error_msg", "Email already exists");
-
-//             return res.redirect("/register");
-//         }
-
-//         const user = new User({
-//             name,
-//             email,
-//             password
-//         });
-
-//         await user.save();
-
-//         req.flash("success_msg", "Registration successful");
-
-//         res.redirect("/login");
-
-//     }catch(error){
-
-//         console.log(error);
-//     }
-// };
-
-// exports.showLogin = (req, res) => {
-//     res.render("auth/login");
-// };
-
-// exports.loginUser = async (req, res) => {
-
-//     try{
-
-//         const { email, password } = req.body;
-
-//         const user = await User.findOne({ email });
-
-//         if(!user){
-
-//             req.flash("error_msg", "Invalid email or password");
-
-//             return res.redirect("/login");
-//         }
-
-//         const isMatch = await bcrypt.compare(password, user.password);
-
-//         if(!isMatch){
-
-//             req.flash("error_msg", "Invalid email or password");
-
-//             return res.redirect("/login");
-//         }
-
-//         req.session.user = {
-//             id: user._id,
-//             name: user.name,
-//             role: user.role
-//         };
-
-//         req.flash("success_msg", `Welcome back ${user.name}`);
-
-//         if(user.role === "admin"){
-//             return res.redirect("/admin");
-//         }
-
-//         res.redirect("/");
-
-//     }catch(error){
-
-//         console.log(error);
-//     }
-// };
-
-// exports.logoutUser = (req, res) => {
-
-//     req.session.destroy(() => {
-
-//         req.flash("success_msg", "Logged out successfully");
-
-//         res.redirect("/login");
-//     });
-// };
 
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+
+const buildSessionUser = (user) => ({
+    id: user._id.toString(),
+    name: user.name,
+    role: user.role
+});
 
 /* REGISTER PAGE */
 exports.showRegister = (req, res) => {
@@ -168,17 +78,30 @@ exports.loginUser = async (req, res) => {
             return res.redirect("/login");
         }
 
-        req.session.user = {
-            id: user._id,
-            name: user.name,
-            role: user.role
-        };
+        req.session.regenerate((sessionError) => {
+            if (sessionError) {
+                console.log(sessionError);
+                req.flash("error_msg", "Login error");
+                return res.redirect("/login");
+            }
 
-        req.flash("success_msg", `Welcome ${user.name}`);
+            req.session.user = buildSessionUser(user);
+            req.flash("success_msg", `Welcome ${user.name}`);
 
-        return user.role === "admin"
-            ? res.redirect("/admin")
-            : res.redirect("/");
+            req.session.save((saveError) => {
+                if (saveError) {
+                    console.log(saveError);
+                    req.flash("error_msg", "Login error");
+                    return res.redirect("/login");
+                }
+
+                return user.role === "admin"
+                    ? res.redirect("/admin")
+                    : res.redirect("/");
+            });
+        });
+
+        return;
 
     } catch (err) {
         console.log(err);
@@ -190,11 +113,15 @@ exports.loginUser = async (req, res) => {
 /* LOGOUT */
 exports.logoutUser = (req, res) => {
     if (req.session) {
-        req.session.user = null;
-        req.flash("success_msg", "You have successfully logged out");
-        req.session.save((err) => {
-            if (err) console.log(err);
-            res.redirect("/login");
+        req.session.destroy((sessionError) => {
+            if (sessionError) {
+                console.log(sessionError);
+                req.flash("error_msg", "Logout error");
+                return res.redirect("/");
+            }
+
+            res.clearCookie("labtask.sid");
+            return res.redirect("/login");
         });
         return;
     }
