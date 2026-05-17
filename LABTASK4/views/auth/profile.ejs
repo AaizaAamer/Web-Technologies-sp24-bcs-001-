@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .profile-page {
+            min-height: 100vh;
+            padding: 28px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at top right, rgba(255, 186, 120, 0.22), transparent 36%),
+                linear-gradient(135deg, #f8f4ee 0%, #fffdfa 100%);
+        }
+
+        .profile-card {
+            width: min(100%, 760px);
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 32px;
+            box-shadow: 0 20px 42px rgba(17, 24, 39, 0.12);
+            border: 1px solid rgba(17, 24, 39, 0.08);
+        }
+
+        .profile-title {
+            margin: 0 0 20px;
+            font-size: 32px;
+            color: #111827;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .profile-item {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .profile-label {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        .profile-value {
+            font-size: 16px;
+            color: #111827;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .profile-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .profile-link {
+            text-decoration: none;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .profile-link.primary {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: #ffffff;
+        }
+
+        .profile-link.secondary {
+            border: 1px solid #d1d5db;
+            color: #111827;
+            background: #ffffff;
+        }
+
+        .profile-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(17, 24, 39, 0.14);
+        }
+
+        @media (max-width: 768px) {
+            .profile-card {
+                padding: 24px;
+                border-radius: 18px;
+            }
+
+            .profile-title {
+                font-size: 28px;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-page {
+                padding: 16px;
+            }
+
+            .profile-card {
+                padding: 18px;
+                border-radius: 14px;
+            }
+
+            .profile-title {
+                font-size: 24px;
+            }
+
+            .profile-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body class="profile-page">
+    <main class="profile-card">
+        <%- include("../partials/flash") %>
+
+        <h1 class="profile-title">My Profile</h1>
+
+        <section class="profile-grid">
+            <article class="profile-item">
+                <span class="profile-label">Name</span>
+                <span class="profile-value"><%= profileUser.name %></span>
+            </article>
+
+            <article class="profile-item">
+                <span class="profile-label">Email</span>
+                <span class="profile-value"><%= profileUser.email %></span>
+            </article>
+
+            <article class="profile-item">
+                <span class="profile-label">Role</span>
+                <span class="profile-value"><%= profileUser.role %></span>
+            </article>
+        </section>
+
+        <div class="profile-actions">
+            <a href="/" class="profile-link secondary">Home</a>
+            <a href="/logout" class="profile-link primary">Logout</a>
+        </div>
+    </main>
+</body>
+</html>

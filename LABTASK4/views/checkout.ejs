@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .checkout-page {
+            min-height: 100vh;
+            padding: 28px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at top left, rgba(255, 181, 120, 0.2), transparent 36%),
+                linear-gradient(135deg, #f8f5ef 0%, #fffdf9 100%);
+        }
+
+        .checkout-card {
+            width: min(100%, 760px);
+            background: #ffffff;
+            border: 1px solid rgba(17, 24, 39, 0.08);
+            border-radius: 22px;
+            padding: 32px;
+            box-shadow: 0 20px 42px rgba(17, 24, 39, 0.12);
+        }
+
+        .checkout-title {
+            margin: 0 0 18px;
+            font-size: 34px;
+            color: #111827;
+        }
+
+        .checkout-note {
+            margin: 0 0 14px;
+            color: #374151;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .session-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0 20px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: #fff7ed;
+            color: #9a3412;
+            font-weight: 700;
+            border: 1px solid #fed7aa;
+        }
+
+        .checkout-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .checkout-link {
+            text-decoration: none;
+            border-radius: 12px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .checkout-link.primary {
+            color: #ffffff;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+        }
+
+        .checkout-link.secondary {
+            color: #111827;
+            border: 1px solid #d1d5db;
+            background: #ffffff;
+        }
+
+        .checkout-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(17, 24, 39, 0.14);
+        }
+
+        @media (max-width: 768px) {
+            .checkout-card {
+                padding: 24px;
+                border-radius: 18px;
+            }
+
+            .checkout-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .checkout-page {
+                padding: 16px;
+            }
+
+            .checkout-card {
+                padding: 18px;
+                border-radius: 14px;
+            }
+
+            .checkout-title {
+                font-size: 24px;
+            }
+
+            .checkout-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body class="checkout-page">
+    <main class="checkout-card">
+        <%- include("./partials/flash") %>
+
+        <h1 class="checkout-title">Checkout</h1>
+
+        <p class="checkout-note">Review your cart and complete shipping details to place your order.</p>
+
+        <p class="session-pill">Signed in as: <%= user ? user.name : "Guest" %> | Cart Items: <%= cartCount || 0 %></p>
+
+        <% if (!cartItems || cartItems.length === 0) { %>
+            <p class="checkout-note">Your cart is empty. Add products from the products page.</p>
+        <% } else { %>
+            <form action="/checkout/place-order" method="POST" style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid #e5e7eb;border-radius:12px;background:#fafafa;">
+                    <% cartItems.forEach((item) => { %>
+                        <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                            <strong><%= item.product.name %></strong>
+                            <span>Qty: <%= item.quantity %> x $<%= item.product.price %> = $<%= item.lineTotal %></span>
+                        </div>
+                    <% }) %>
+                    <hr style="border:none;border-top:1px solid #e5e7eb; margin: 4px 0;">
+                    <div style="display:flex;justify-content:space-between;font-weight:700;">
+                        <span>Total</span>
+                        <span>$<%= totalAmount %></span>
+                    </div>
+                </div>
+
+                <label for="shippingAddress">Shipping Address</label>
+                <textarea
+                    id="shippingAddress"
+                    name="shippingAddress"
+                    rows="3"
+                    placeholder="Enter full shipping address"
+                    required
+                    style="padding:10px;border-radius:10px;border:1px solid #d1d5db;resize:vertical;"
+                ></textarea>
+
+                <button type="submit" class="checkout-link primary" style="border:none;cursor:pointer;">Place Order</button>
+            </form>
+        <% } %>
+
+        <div class="checkout-actions">
+            <a href="/products" class="checkout-link secondary">Back to Products</a>
+            <a href="/logout" class="checkout-link primary">Logout</a>
+        </div>
+    </main>
+</body>
+</html>
