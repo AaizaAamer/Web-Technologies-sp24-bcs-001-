@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Dashboard</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/sales-dashboard.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+    <%- include("./admin/partials/adminSidebar") %>
+
+    <div class="main-content">
+        <div class="dashboard-header">
+            <h1>📊 Sales Dashboard</h1>
+            <p class="dashboard-subtitle">Real-time sales analytics and statistics</p>
+            <div class="update-indicator" id="updateIndicator">
+                Last updated: <span id="lastUpdateTime"><%= new Date(salesData.timestamp).toLocaleTimeString() %></span>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card revenue-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-card-label">Total Revenue</div>
+                <div class="stat-card-value" id="totalRevenue">
+                    $<%= Number(salesData.totalRevenue).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+                </div>
+            </div>
+
+            <div class="stat-card orders-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-card-label">Total Orders</div>
+                <div class="stat-card-value" id="totalOrders">
+                    <%= salesData.totalOrders %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Selling Products Section -->
+        <div class="section-container">
+            <h2 class="section-title">🔥 Top Selling Products</h2>
+            <div class="products-grid" id="topSellingProducts">
+                <% if (salesData.topSellingProducts && salesData.topSellingProducts.length > 0) { %>
+                    <% salesData.topSellingProducts.forEach((product, index) => { %>
+                        <div class="product-card">
+                            <div class="product-rank"><%= index + 1 %></div>
+                            <div class="product-name"><%= product.productName %></div>
+                            <div class="product-stat">
+                                <span class="product-stat-label">Quantity Sold:</span> 
+                                <span class="product-stat-value"><%= product.quantitySold %></span>
+                            </div>
+                            <div class="product-stat">
+                                <span class="product-stat-label">Total Sales:</span> 
+                                <span class="product-stat-value">$<%= Number(product.totalSales).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></span>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="no-data">No sales data available yet.</div>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- Recent Transactions Section -->
+        <div class="section-container">
+            <h2 class="section-title">📋 Recent Transactions</h2>
+            <% if (salesData.recentOrders && salesData.recentOrders.length > 0) { %>
+                <table class="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Total Amount</th>
+                            <th>Items</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentTransactions">
+                        <% salesData.recentOrders.forEach(order => { %>
+                            <tr>
+                                <td>#<%= order._id.toString().substring(0, 8).toUpperCase() %></td>
+                                <td><%= order.userName %></td>
+                                <td><%= order.userEmail %></td>
+                                <td>$<%= Number(order.totalAmount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %></td>
+                                <td><%= order.itemCount %></td>
+                                <td><%= new Date(order.createdAt).toLocaleDateString() %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <div class="no-data">No transactions recorded yet.</div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- jQuery Script for Real-Time Polling -->
+    <script>
+    $(document).ready(function() {
+        // Function to update dashboard with new data
+        function updateDashboard() {
+            $.ajax({
+                url: '/api/sales-data',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        const data = response.data;
+
+                        // Update revenue
+                        const formattedRevenue = '$' + Number(data.totalRevenue).toLocaleString('en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        });
+                        $('#totalRevenue').fadeOut(200, function() {
+                            $(this).text(formattedRevenue).fadeIn(200);
+                        });
+
+                        // Update orders
+                        $('#totalOrders').fadeOut(200, function() {
+                            $(this).text(data.totalOrders).fadeIn(200);
+                        });
+
+                        // Update top selling products
+                        if (data.topSellingProducts && data.topSellingProducts.length > 0) {
+                            let productsHTML = '';
+                            data.topSellingProducts.forEach((product, index) => {
+                                const formattedSales = '$' + Number(product.totalSales).toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                });
+                                productsHTML += `
+                                    <div class="product-card">
+                                        <div class="product-rank">${index + 1}</div>
+                                        <div class="product-name">${product.productName}</div>
+                                        <div class="product-stat">
+                                            <span class="product-stat-label">Quantity Sold:</span> 
+                                            <span class="product-stat-value">${product.quantitySold}</span>
+                                        </div>
+                                        <div class="product-stat">
+                                            <span class="product-stat-label">Total Sales:</span> 
+                                            <span class="product-stat-value">${formattedSales}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            });
+                            $('#topSellingProducts').fadeOut(200, function() {
+                                $(this).html(productsHTML).fadeIn(200);
+                            });
+                        }
+
+                        // Update recent transactions
+                        if (data.recentOrders && data.recentOrders.length > 0) {
+                            let transactionsHTML = '';
+                            data.recentOrders.forEach(order => {
+                                const formattedAmount = '$' + Number(order.totalAmount).toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                });
+                                const orderDate = new Date(order.createdAt).toLocaleDateString();
+                                const orderIdShort = order._id.toString().substring(0, 8).toUpperCase();
+                                transactionsHTML += `
+                                    <tr>
+                                        <td>#${orderIdShort}</td>
+                                        <td>${order.userName}</td>
+                                        <td>${order.userEmail}</td>
+                                        <td>${formattedAmount}</td>
+                                        <td>${order.itemCount}</td>
+                                        <td>${orderDate}</td>
+                                    </tr>
+                                `;
+                            });
+                            $('#recentTransactions').fadeOut(200, function() {
+                                $(this).html(transactionsHTML).fadeIn(200);
+                            });
+                        }
+
+                        // Update last updated time
+                        const now = new Date();
+                        $('#lastUpdateTime').text(now.toLocaleTimeString());
+
+                        console.log('Dashboard updated at', now.toLocaleTimeString());
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching sales data:', error);
+                }
+            });
+        }
+
+        // Initial update on page load (already have data from server)
+        console.log('Sales Dashboard initialized');
+
+        // Set up periodic updates every 10 seconds
+        setInterval(function() {
+            updateDashboard();
+        }, 10000); // 10 seconds = 10000 milliseconds
+    });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="checkout-page">
+    <main class="checkout-card">
+        <%- include("./partials/flash") %>
+
+        <h1 class="checkout-title">Checkout</h1>
+
+        <p class="checkout-note">Review your cart and complete shipping details to place your order.</p>
+
+        <p class="session-pill">Signed in as: <%= user ? user.name : "Guest" %> | Cart Items: <%= cartCount || 0 %></p>
+
+        <% if (!cartItems || cartItems.length === 0) { %>
+            <p class="checkout-note">Your cart is empty. Add products from the products page.</p>
+        <% } else { %>
+            <form action="/checkout/place-order" method="POST" class="checkout-form-grid">
+                <div class="checkout-items-panel">
+                    <% cartItems.forEach((item) => { %>
+                        <article class="checkout-item-row">
+                            <div class="checkout-item-left">
+                                <% if (item.product.image) { %>
+                                    <img src="/uploads/<%= item.product.image %>" alt="<%= item.product.name %>" class="checkout-item-image">
+                                <% } %>
+                                <div>
+                                    <h3 class="checkout-item-title"><%= item.product.name %></h3>
+                                    <p class="checkout-item-meta">Unit Price: $<%= item.product.price %> | Qty: <%= item.quantity %></p>
+                                </div>
+                            </div>
+                            <strong>$<%= item.lineTotal %></strong>
+                        </article>
+                    <% }) %>
+                    <div class="checkout-summary-row">
+                        <span>Total</span>
+                        <span>$<%= totalAmount %></span>
+                    </div>
+                </div>
+
+                <label for="shippingAddress">Shipping Address</label>
+                <textarea
+                    id="shippingAddress"
+                    name="shippingAddress"
+                    rows="3"
+                    placeholder="Enter full shipping address"
+                    required
+                    class="checkout-address"
+                ></textarea>
+
+                <button type="submit" class="checkout-link primary">Place Order</button>
+            </form>
+        <% } %>
+
+        <div class="checkout-actions">
+            <a href="/cart" class="checkout-link secondary">Back to Cart</a>
+            <a href="/products" class="checkout-link secondary">Continue Shopping</a>
+            <a href="/logout" class="checkout-link primary">Logout</a>
+        </div>
+    </main>
+</body>
+</html>

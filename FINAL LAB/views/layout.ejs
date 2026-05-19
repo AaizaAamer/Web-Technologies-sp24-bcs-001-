@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title : 'Dashboard' %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;">
+    
+    <%- include("./partials/flash") %>
+
+    <div class="navbar">
+        <div class="LOGO">
+            <img src="/images/download.png" width="100px">
+        </div>
+
+        <div class="Search">
+            <div class="Search input">
+                <input type="text" placeholder="Search for anything" style="padding-left:20px;">
+            </div>
+            <div class="Search-icon">
+                <img src="/images/search (1).png">
+            </div>
+        </div>
+
+        <div class="Sign-in">
+            <a href="/" class="sign-in-btn">Home</a>
+            <a href="/checkout" class="sign-in-btn">Checkout</a>
+            <% if (user) { %>
+                <% if (user.isAdmin) { %>
+                    <a href="/admin" class="sign-in-btn">Admin</a>
+                    <a href="/sales" class="sign-in-btn">Sales Dashboard</a>
+                <% } %>
+                <a href="/profile" class="sign-in-btn">My Profile</a>
+                <a href="/logout" class="sign-in-btn">Logout</a>
+            <% } else { %>
+                <a href="/login" class="sign-in-btn">Login</a>
+                <a href="/register" class="sign-in-btn">Register</a>
+            <% } %>
+        </div>
+
+        <div class="icons">
+            <div class="heart-icon">
+                <img src="/images/favorites.png" width="20px">
+            </div>
+            <div class="gift-icon">
+                <img src="/images/gift.png" width="20px">
+            </div>
+            <div class="parcel-icon">
+                <img src="/images/parcel.png" width="20px">
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-container">
+        <%- body %>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background-color: #f5f5f5; padding: 20px; text-align: center; margin-top: 40px; border-top: 1px solid #ddd;">
+        <p>&copy; 2026 E-Commerce Store. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

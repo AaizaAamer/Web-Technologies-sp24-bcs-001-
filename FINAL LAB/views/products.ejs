@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Products</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+    <%- include("./partials/flash") %>
+    <!-- Navbar -->
+ <div class="navbar">
+        <div class="back-button">
+    <a href="/">
+        <img src="/images/back.png" style="width: 30px; height: auto;">
+    </a>
+</div>
+        <div class="LOGO">
+        <img src="/images/download.png" style="width: 100px; height: auto;">
+        </div>
+
+
+        <div class="Search">
+            <div class="Search input">
+            <input type="text" placeholder="Search for anything" style="padding-left:20px;">
+            </div>
+            <div class="Search-icon">
+                <img src="/images/search (1).png">
+            </div>
+        </div>
+
+           <div class="Sign-in">
+               <a href="/cart" class="sign-in-btn" id="checkoutLink">Cart (<%= cartCount || 0 %>)</a>
+               <% if (user) { %>
+                   <a href="/profile" class="sign-in-btn">My Profile</a>
+                   <a href="/logout" class="sign-in-btn">Logout</a>
+               <% } else { %>
+                   <a href="/login" class="sign-in-btn">Login</a>
+                   <a href="/register" class="sign-in-btn">Register</a>
+               <% } %>
+           </div>
+        <div class="icons">
+            <div class="heart-icon">
+                <img src="/images/favorites.png" width="20px">
+            </div>
+            <div class="gift-icon">
+                <img src="/images/gift.png" width="20px">
+            </div>
+            <a href="/cart" class="parcel-icon cart-icon-link" aria-label="Open cart">
+                <img src="/images/parcel.png" width="20px">
+                <span class="cart-badge" id="cartCountBadge"><%= cartCount || 0 %></span>
+            </a>
+        </div>
+    </div>
+    <!--desktop subnavbar-->
+<div class="subnavbar">
+    <a href="/products">All Products</a>
+    <a href="/products?category=Gifts">Gifts</a>
+    <a href="/products?category=New Arrivals">New Arrivals</a>
+    <a href="/products?category=Home Decor">Home Decor</a>
+    <a href="/products?category=Fashion">Fashion</a>
+    <a href="/products?category=Jewelry">Jewelry</a>
+    <a href="/products?category=Crafts">Crafts</a>
+</div>
+
+
+<hr>
+    <h1>Products</h1>
+    <form action="/products" method="GET">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search Product"
+        value="<%= search %>"
+    >
+
+    <select name="category">
+
+       <option value="">All Categories</option>
+
+<option value="Fashion">Fashion</option>
+
+<option value="Jewelry">Jewelry</option>
+
+<option value="Home Decor">Home Decor</option>
+
+<option value="Gifts">Gifts</option>
+
+<option value="Crafts">Crafts</option>
+
+    </select>
+
+    <input
+        type="number"
+        name="minPrice"
+        placeholder="Min Price"
+        value="<%= minPrice %>"
+    >
+
+    <input
+        type="number"
+        name="maxPrice"
+        placeholder="Max Price"
+        value="<%= maxPrice %>"
+    >
+
+    <button type="submit">
+
+        Filter
+
+    </button>
+
+</form>
+    <div class="products-container">
+
+        <% products.forEach(product => { %>
+
+            <div class="card">
+
+    <img 
+    src="/uploads/<%= product.image %>"
+>
+
+    <div class="card-content">
+
+        <h2><%= product.name %></h2>
+
+        <p class="category-text">
+            <%= product.category %>
+        </p>
+
+        <div class="rating-stars">
+
+            <% for(let i = 1; i <= 5; i++){ %>
+
+                <% if(i <= product.rating){ %>
+
+                    <img 
+                        src="/images/star.png"
+                        class="star-icon"
+                    >
+
+                <% } else { %>
+
+                    <img 
+                        src="/images/star2.png"
+                        class="star-icon"
+                    >
+
+                <% } %>
+
+            <% } %>
+
+            <span class="rating-number">
+                (<%= product.rating %>)
+            </span>
+
+        </div>
+
+        <div class="price-stock">
+
+            <p class="price">
+                $<%= product.price %>
+            </p>
+
+            <p class="stock">
+
+                <% if(product.stock == 0){ %>
+
+                    Out of stock
+
+                <% } else if(product.stock <= 3){ %>
+
+                    Only <%= product.stock %> left
+
+                <% } else { %>
+
+                    In stock <%= product.stock %> left
+
+                <% } %>
+
+            </p>
+
+        </div>
+
+        <% if (product.stock > 0) { %>
+            <form action="/cart/add/<%= product._id %>" method="POST" class="card-cart-form js-add-to-cart-form" data-product-name="<%= product.name %>">
+                <div class="qty-row">
+                    <label for="qty-<%= product._id %>" class="qty-label">Qty</label>
+                    <input
+                        id="qty-<%= product._id %>"
+                        type="number"
+                        name="quantity"
+                        min="1"
+                        max="<%= product.stock %>"
+                        value="1"
+                        required
+                        class="qty-input"
+                    >
+                </div>
+                <button type="submit" class="card-cart-btn">Add to Cart</button>
+                <p class="cart-inline-message" aria-live="polite"></p>
+            </form>
+        <% } %>
+
+    </div>
+
+</div>
+
+        <% }) %>
+
+    </div>
+
+
+
+    <div class="pagination">
+
+    <% if(currentPage > 1){ %>
+
+        <a href="/products?page=<%= currentPage - 1 %>&search=<%= search %>&category=<%= category %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">
+            Previous
+        </a>
+
+    <% } %>
+
+    <% for(let i = 1; i <= totalPages; i++){ %>
+
+        <a href="/products?page=<%= i %>&search=<%= search %>&category=<%= category %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">
+
+            <%= i %>
+
+        </a>
+
+    <% } %>
+
+    <% if(currentPage < totalPages){ %>
+
+        <a href="/products?page=<%= currentPage + 1 %>&search=<%= search %>&category=<%= category %>&minPrice=<%= minPrice %>&maxPrice=<%= maxPrice %>">
+            Next
+        </a>
+
+    <% } %>
+
+</div>
+
+
+
+
+
+<div class="blue">
+        <p>Etsy is powered by 100% renewable electricity.</p>
+</div>
+
+<div class="bottompage">
+        <div class="downloadEtsy">
+            <img src="/images/etsyDownload.png" class="downloadImg">
+            
+            <button class="downloadBtn">Download the Etsy App</button>
+        
+        </div>
+        
+        <div class="bottomLists">
+        <ul class="list">
+            <li class="title">SHOP</li>
+            <li>Gift Cards</li>
+            <li>Etsy Registry</li>
+            <li>Sitemap</li>
+            <li>Etsy blog</li>
+            <li>Etsy United Kingdom</li>
+            <li>Etsy Germany</li>
+            <li>Etsy Canada</li>
+        </ul>
+
+        <ul class="list">
+            <li class="title">SELL</li>
+            <li>Sell on Etsy</li>
+            <li>Teams</li>
+            <li>Forums</li>
+            <li>Affiliates and Creators</li>
+        </ul>
+
+        <ul class="list">
+            <li class="title">About</li>
+            <li>Etsy, Inc.</li>
+            <li>Policies</li>
+            <li>Investors</li>
+            <li>Careers</li>
+            <li>Press</li>
+            <li>Impact</li>
+            <li>Legal imprint</li>
+        </ul>
+
+        <ul class="list">
+            <li class="title">Help</li>
+            <li>Help Center</li>
+            <li>Privacy settings</li>
+        </ul>
+        </div>
+</div>
+<!-- Mobile version -->
+<div class="bottompageMobile">
+    <div class="bottomLists">
+        
+        <ul class="list">
+            <li class="title">SHOP</li>
+            <li>Gift Cards</li>
+            <li>Etsy Registry</li>
+            <li>Sitemap</li>
+            <li>Etsy blog</li>
+            <li>Etsy United Kingdom</li>
+            <li>Etsy Germany</li>
+            <li>Etsy Canada</li>
+        </ul>
+
+        <ul class="list">
+            <li class="title">SELL</li>
+            <li>Sell on Etsy</li>
+            <li>Teams</li>
+            <li>Forums</li>
+            <li>Affiliates and Creators</li>
+        </ul>
+
+        <ul class="list">
+            <li class="title">ABOUT</li>
+            <li>Etsy, Inc.</li>
+            <li>Policies</li>
+            <li>Investors</li>
+            <li>Careers</li>
+            <li>Press</li>
+            <li>Impact</li>
+            <li>Legal imprint</li>
+        </ul>
+
+        <ul class="list">
+            <li class="title">HELP</li>
+            <li>Help Center</li>
+            <li>Privacy settings</li>
+        </ul>
+    </div>
+
+    <div class="downloadEtsy">
+        <img src="/images/etsyDownload.png" class="downloadImg">
+        <button class="downloadBtn">Download the Etsy App</button>
+    </div>
+</div>
+
+
+<div class="copyright">
+        <p>Copyright © 2024 Etsy, Inc. All rights reserved.</p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const forms = document.querySelectorAll(".js-add-to-cart-form");
+    const cartBadge = document.getElementById("cartCountBadge");
+    const checkoutLink = document.getElementById("checkoutLink");
+
+    const setCartCount = (count) => {
+        if (cartBadge) {
+            cartBadge.textContent = String(count);
+        }
+
+        if (checkoutLink) {
+            checkoutLink.textContent = `Cart (${count})`;
+        }
+    };
+
+    forms.forEach((form) => {
+        const qtyInput = form.querySelector(".qty-input");
+        const msg = form.querySelector(".cart-inline-message");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const value = Number.parseInt(qtyInput.value, 10);
+            const min = Number.parseInt(qtyInput.min, 10) || 1;
+            const max = Number.parseInt(qtyInput.max, 10) || 1;
+
+            if (!Number.isInteger(value) || value < min || value > max) {
+                msg.textContent = `Please enter quantity between ${min} and ${max}.`;
+                msg.classList.add("error");
+                return;
+            }
+
+            const formData = new URLSearchParams(new FormData(form));
+
+            try {
+                const response = await fetch(form.action, {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+                    },
+                    body: formData
+                });
+
+                if (response.redirected && response.url.includes("/login")) {
+                    window.location.href = "/login";
+                    return;
+                }
+
+                const payload = await response.json();
+
+                if (!response.ok || !payload.success) {
+                    msg.textContent = payload.message || "Unable to add item.";
+                    msg.classList.add("error");
+                    return;
+                }
+
+                setCartCount(payload.cartCount || 0);
+                msg.textContent = payload.message || "Added to cart.";
+                msg.classList.remove("error");
+            } catch (error) {
+                msg.textContent = "Network error. Please try again.";
+                msg.classList.add("error");
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

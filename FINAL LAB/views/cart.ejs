@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="checkout-page">
+    <main class="checkout-card">
+        <%- include("./partials/flash") %>
+
+        <h1 class="checkout-title">Your Cart</h1>
+        <p class="checkout-note">Review your selected items before checkout.</p>
+
+        <% if (!cartItems || cartItems.length === 0) { %>
+            <p class="checkout-note">Your cart is empty. Add items from products page.</p>
+            <div class="checkout-actions">
+                <a href="/products" class="checkout-link secondary">Continue Shopping</a>
+            </div>
+        <% } else { %>
+            <div class="checkout-items-panel">
+                <% cartItems.forEach((item) => { %>
+                    <article class="checkout-item-row">
+                        <div class="checkout-item-left">
+                            <% if (item.product.image) { %>
+                                <img src="/uploads/<%= item.product.image %>" alt="<%= item.product.name %>" class="checkout-item-image">
+                            <% } %>
+                            <div>
+                                <h3 class="checkout-item-title"><%= item.product.name %></h3>
+                                <p class="checkout-item-meta">Unit Price: $<%= item.product.price %> | In Stock: <%= item.product.stock %></p>
+                            </div>
+                        </div>
+
+                        <div class="checkout-item-right">
+                            <form action="/cart/update/<%= item.product._id %>" method="POST" class="cart-inline-form">
+                                <input
+                                    type="number"
+                                    name="quantity"
+                                    min="1"
+                                    max="<%= item.product.stock %>"
+                                    value="<%= item.quantity %>"
+                                    class="cart-inline-qty"
+                                    required
+                                >
+                                <button type="submit" class="checkout-link secondary">Update</button>
+                            </form>
+
+                            <form action="/cart/remove/<%= item.product._id %>" method="POST">
+                                <button type="submit" class="checkout-link danger">Remove</button>
+                            </form>
+                        </div>
+                    </article>
+                <% }) %>
+            </div>
+
+            <div class="checkout-summary-row">
+                <span>Total Items: <%= cartCount %></span>
+                <strong>Total Amount: $<%= totalAmount %></strong>
+            </div>
+
+            <div class="checkout-actions">
+                <a href="/products" class="checkout-link secondary">Continue Shopping</a>
+                <a href="/checkout" class="checkout-link primary">Proceed to Checkout</a>
+            </div>
+        <% } %>
+    </main>
+</body>
+</html>
